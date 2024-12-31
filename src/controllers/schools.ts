@@ -28,8 +28,9 @@ export async function createSchool(req: Request, res: Response) {
     console.log(
       `School created successfully: ${newSchool.name} (${newSchool.id})`
     );
+    const {createdAt, updatedAt, ...others} = newSchool
     return res.status(201).json({
-      data: newSchool,
+      data: others,
       error: null,
     });
   } catch (error) {
