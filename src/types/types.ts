@@ -35,11 +35,13 @@ export type ContactProps = {
   export type ClassCreateProps ={
     title: string;
     slug: string;
+    schoolId:string;
   };
 
   export type DepartmentCreateProps ={
     name: string;
     slug: string;
+    schoolId:string;
   };
 
   export type SubjectCreateProps ={
@@ -57,6 +59,7 @@ export type ContactProps = {
     title: string;
     slug: string;
     classId: string;
+    schoolId:string;
   }
   export type ParentCreateProps = {
     title:string;
@@ -75,6 +78,8 @@ export type ContactProps = {
     address:string,
     password:string,
     imageUrl:string,
+    schoolId:string;
+    userId:string;
   };
 
   export type StudentCreateProps = {
@@ -101,6 +106,8 @@ export type ContactProps = {
     regNo:string;
     admissionDate:string;
     address:string;
+    schoolId:string;
+    userId:string;
   };
 
   export type TeacherCreateProps = {
@@ -130,6 +137,8 @@ export type ContactProps = {
     experience:number,
     address:string,
     imageUrl:string,
+    schoolId:string;
+    userId:string;
   }
 
   export interface Teacher {
