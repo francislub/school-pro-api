@@ -2,6 +2,7 @@ import { db } from "@/db/db";
 import { ContactProps, ParentCreateProps, StudentCreateProps, TypedRequestBody } from "@/types/types";
 import { convertDateToIso } from "@/utils/convertDateToIso";
 import { Request, Response } from "express";
+import { createUser } from "./users";
 
 export async function createStudent(req: TypedRequestBody<StudentCreateProps>, res: Response) {
   const data = req.body;
@@ -54,6 +55,19 @@ export async function createStudent(req: TypedRequestBody<StudentCreateProps>, r
         error: "Student with this Roll Number Already Exists",
       });
     }
+
+    const userData ={
+      email:data.email,
+      password:data.password,
+      role:"STUDENT",
+      name:data.name,
+      phone:data.phone,
+      image:data.imageUrl,
+      schoolId:data.schoolId,
+      schoolName:data.schoolName,
+    }
+    const user = await createUser(userData);
+
     const newStudent = await db.student.create({
       data,
     });

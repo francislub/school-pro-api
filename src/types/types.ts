@@ -107,6 +107,7 @@ export type ContactProps = {
     admissionDate:string;
     address:string;
     schoolId:string;
+    schoolName:string;
     userId:string;
   };
 
