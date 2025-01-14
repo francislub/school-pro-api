@@ -1,9 +1,10 @@
-import { createClass, createStream, getBriefClasses, getClasses, getStreams } from "@/controllers/classes";
+import { createClass, createStream, getBriefClasses, getClasses, getClassesBySchoolId, getStreams } from "@/controllers/classes";
 import express from "express";
 const classRouter = express.Router();
 
 classRouter.post("/classes", createClass);
 classRouter.get("/classes", getClasses);
+classRouter.get("/classes/school/:schoolId", getClassesBySchoolId);
 classRouter.get("/classes/brief", getBriefClasses);
 classRouter.post("/streams", createStream);
 classRouter.get("/streams", getStreams);

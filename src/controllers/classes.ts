@@ -105,6 +105,43 @@ export async function getClasses(req: Request, res: Response) {
   }
 }
 
+export async function getClassesBySchoolId(req: Request, res: Response) {
+
+  const {schoolId } = req.params
+  try {
+    const classes = await db.class.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      where: {
+        schoolId
+      },
+      include: {
+        streams: {
+          include: {
+            _count:{
+              select: {
+                students: true
+              }
+            }
+          }
+        },
+        _count:{
+          select: {
+            students: true
+          }
+        }
+      }
+    });
+    return res.status(200).json(classes);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Failed to fetch classes",
+    })
+  }
+}
+
 export async function getBriefClasses(req: Request, res: Response) {
   try {
     const classes = await db.class.findMany({
