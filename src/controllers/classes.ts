@@ -143,10 +143,14 @@ export async function getClassesBySchoolId(req: Request, res: Response) {
 }
 
 export async function getBriefClasses(req: Request, res: Response) {
+  const {schoolId} = req.params
   try {
     const classes = await db.class.findMany({
       orderBy: {
         createdAt: "desc",
+      },
+      where: {
+        schoolId
       },
       select: {
          id: true,

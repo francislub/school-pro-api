@@ -89,6 +89,24 @@ export async function getParents(req: Request, res: Response) {
     console.log(error);
   }
 }
+
+export async function getParentsBySchoolId(req: Request, res: Response) {
+  try {
+    const { schoolId } =req.params
+    const parents = await db.parent.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      where:{
+        schoolId
+      }
+    });
+    return res.status(200).json(parents);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // export async function getCustomerById(req: Request, res: Response) {
 //   const { id } = req.params;
 //   try {
