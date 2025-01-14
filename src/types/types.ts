@@ -35,13 +35,13 @@ export type ContactProps = {
   export type ClassCreateProps ={
     title: string;
     slug: string;
-    schoolId:string;
+    schoolId: string;
   };
 
   export type DepartmentCreateProps ={
     name: string;
     slug: string;
-    schoolId:string;
+    schoolId: string;
   };
 
   export type SubjectCreateProps ={
