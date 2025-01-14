@@ -79,6 +79,7 @@ export type ContactProps = {
     password:string,
     imageUrl:string,
     schoolId:string;
+    schoolName:string;
     userId:string;
   };
 
@@ -139,6 +140,7 @@ export type ContactProps = {
     address:string,
     imageUrl:string,
     schoolId:string;
+    schoolName:string;
     userId:string;
   }
 

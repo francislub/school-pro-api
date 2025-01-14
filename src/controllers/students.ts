@@ -2,7 +2,8 @@ import { db } from "@/db/db";
 import { ContactProps, ParentCreateProps, StudentCreateProps, TypedRequestBody } from "@/types/types";
 import { convertDateToIso } from "@/utils/convertDateToIso";
 import { Request, Response } from "express";
-import { createUser } from "./users";
+import { createUser, createUserService } from "./users";
+import { UserRole } from "@prisma/client";
 
 export async function createStudent(req: TypedRequestBody<StudentCreateProps>, res: Response) {
   const data = req.body;
@@ -59,15 +60,15 @@ export async function createStudent(req: TypedRequestBody<StudentCreateProps>, r
     const userData ={
       email:data.email,
       password:data.password,
-      role:"STUDENT",
+      role:"STUDENT" as UserRole,
       name:data.name,
       phone:data.phone,
       image:data.imageUrl,
       schoolId:data.schoolId,
       schoolName:data.schoolName,
     }
-    const user = await createUser(userData);
-
+    const user = await createUserService(userData);
+    data.userId = user.id;
     const newStudent = await db.student.create({
       data,
     });

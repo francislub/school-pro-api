@@ -4,34 +4,36 @@ import { Response } from "express";
 import bcrypt from "bcrypt";
 import { generateAccessToken, generateRefreshToken, TokenPayload } from "@/utils/tokens";
 
+export async function createUserService(data: UserCreateProps) {
+  const existingEmail = await db.user.findUnique({
+    where:{
+      email: data.email
+    },
+  });
+
+  if (existingEmail) {
+    throw new Error('Email already exists');
+  }
+
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+  const userData = { ...data, password: hashedPassword };
+
+  const newUser = await db.user.create({
+    data: userData,
+  });
+
+  console.log('User created successfully: ${newUser.name} (${newUser.id})');
+  return newUser;
+}
+
 export async function createUser(req: TypedRequestBody<UserCreateProps>, res: Response) {
   const data = req.body;
-  const {email, password, role, name,phone,image, schoolId, schoolName} = data;
+  // const {email, password, role, name,phone,image, schoolId, schoolName} = data;
 
   try {
-    // Check if the user already exists\
-    const existingEmail = await db.user.findUnique({
-      where: {
-        email,
-      },
-    });
-    if (existingEmail) {
-      return res.status(409).json({
-        data: null,
-        error: "Email already exists",
-      });
-    }
+    
 
-    // hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-    data.password = hashedPassword
-
-    const newUser = await db.user.create({
-      data,
-    });
-    console.log(
-      `User created successfully: ${newUser.name} (${newUser.id})`
-    );
+   const newUser = await createUserService(data);
     return res.status(201).json({
       data: newUser,
       error: null,
