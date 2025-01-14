@@ -146,6 +146,7 @@ model Parent {
   students Student[]
 
   schoolId      String 
+  schoolName    String
   school        School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
 
   createdAt     DateTime  @default(now())
@@ -188,6 +189,7 @@ model Student {
   updatedAt     DateTime  @updatedAt
 
   schoolId      String 
+  schoolName    String
   school        School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
 
   parent    Parent @relation(fields: [parentId], references:[id], onDelete: Cascade)
@@ -252,6 +254,7 @@ model Teacher {
 
   school School @relation(fields: [schoolId], references: [id])
   schoolId String
+  schoolName    String
 
   attendance TeacherAttendance[]
   leaves     TeacherLeave[]

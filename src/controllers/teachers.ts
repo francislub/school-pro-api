@@ -50,7 +50,7 @@ export async function createTeacher(req: TypedRequestBody<TeacherCreateProps>, r
     const userData ={
           email:data.email,
           password:data.password,
-          role:"PARENT" as UserRole,
+          role:"TEACHER" as UserRole,
           name:`${data.firstName} ${data.lastName}`,
           phone:data.phone,
           image:data.imageUrl,

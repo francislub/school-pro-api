@@ -1,7 +1,9 @@
 import { db } from "@/db/db";
 import { ContactProps, ParentCreateProps, TypedRequestBody } from "@/types/types";
 import { convertDateToIso } from "@/utils/convertDateToIso";
+import { UserRole } from "@prisma/client";
 import { Request, Response } from "express";
+import { createUserService } from "./users";
 
 export async function createParent(req: TypedRequestBody<ParentCreateProps>, res: Response) {
   const data = req.body;
@@ -42,6 +44,21 @@ export async function createParent(req: TypedRequestBody<ParentCreateProps>, res
         error: "Parent with this phone Number Already Exists",
       });
     }
+
+    
+        const userData ={
+              email:data.email,
+              password:data.password,
+              role:"PARENT" as UserRole,
+              name:`${data.firstName} ${data.lastName}`,
+              phone:data.phone,
+              image:data.imageUrl,
+              schoolId:data.schoolId,
+              schoolName:data.schoolName,
+            }
+            const user = await createUserService(userData);
+            data.userId = user.id;
+
     const newParent = await db.parent.create({
       data
     });
