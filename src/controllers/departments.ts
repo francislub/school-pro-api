@@ -58,11 +58,40 @@ export async function getDepartments(req: Request, res: Response) {
   }
 }
 
-export async function getBriefDepartments(req: Request, res: Response) {
+export async function getDepartmentsBySchoolId(req: Request, res: Response) {
+
   try {
+    const {schoolId } = req.params
     const departments = await db.department.findMany({
       orderBy: {
         createdAt: "desc",
+      },
+      where:{
+        schoolId
+      },
+      include: {
+       teachers : true,
+       subjects : true
+      }
+    });
+    return res.status(200).json(departments);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: "Failed to fetch departments",
+    })
+  }
+}
+
+export async function getBriefDepartments(req: Request, res: Response) {
+  try {
+    const {schoolId } = req.params
+    const departments = await db.department.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      where:{
+        schoolId
       },
       select:{
         id:true,

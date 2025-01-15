@@ -101,11 +101,33 @@ export async function getStudents(req: Request, res: Response) {
     console.log(error);
   }
 }
+
+export async function getStudentsBySchoolId(req: Request, res: Response) {
+  try {
+    const {schoolId} = req.params
+    const students = await db.student.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      where: {
+        schoolId
+      },
+    });
+    return res.status(200).json(students);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getNextStudentSquence(req: Request, res: Response) {
   try {
+    const {schoolId} = req.params
     const lastStudent = await db.student.findFirst({
       orderBy: {
         createdAt: "desc",
+      },
+      where:{
+        schoolId
       },
     });
     //BU/UG/2024/0001

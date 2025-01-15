@@ -64,6 +64,7 @@ model School {
   classes     Class[]
   parents     Parent[]
   streams     Stream[]
+  subjects    Subject[]
   teachers     Teacher[]
   departments  Department[]
 
@@ -306,8 +307,8 @@ model Subject {
   departmentId  String
   departmentName  String
 
-  //school School @relation(fields: [schoolId], references: [id])
-  //schoolId String
+  school School @relation(fields: [schoolId], references: [id])
+  schoolId String 
   
 
   isActive  Boolean @default(true)

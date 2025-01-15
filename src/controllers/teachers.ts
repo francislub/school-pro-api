@@ -90,6 +90,24 @@ export async function getTeachers(req: Request, res: Response) {
     console.log(error);
   }
 }
+
+export async function getTeachersBySchoolId(req: Request, res: Response) {
+  try {
+    const {schoolId} = req.params
+    const teachers = await db.teacher.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      where: {
+         schoolId
+      },
+    });
+    return res.status(200).json(teachers);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // export async function getCustomerById(req: Request, res: Response) {
 //   const { id } = req.params;
 //   try {
