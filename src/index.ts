@@ -8,6 +8,7 @@ import departmentRouter from "./routes/departments";
 import subjectRouter from "./routes/subjects";
 import teacherRouter from "./routes/teachers";
 import userRouter from "./routes/users";
+import analyticsRouter from "./routes/analytics";
 
 require("dotenv").config();
 const cors = require("cors");
@@ -31,3 +32,4 @@ app.use("/api/v1", departmentRouter);
 app.use("/api/v1", subjectRouter);
 app.use("/api/v1", teacherRouter);
 app.use("/api/v1", userRouter);
+app.use("/api/v1", analyticsRouter);

@@ -62,7 +62,7 @@ export async function getSubjectsBySchoolId(req: Request, res: Response) {
         createdAt: "desc",
       },
       where: {
-        schoolId,
+        schoolId
       },
     });
     return res.status(200).json(subs);

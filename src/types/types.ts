@@ -53,6 +53,7 @@ export type ContactProps = {
     type: SubjectType;
     departmentId: string;
     departmentName: string;
+    schoolId: string;
   };
 
   export type StreamCreateProps ={
