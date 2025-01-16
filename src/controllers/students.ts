@@ -118,6 +118,31 @@ export async function getStudentsBySchoolId(req: Request, res: Response) {
     console.log(error);
   }
 }
+export async function getStudentsByParentId(req: Request, res: Response) {
+  try {
+    const {parentId} = req.params
+    const students = await db.student.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      where: {
+        parentId
+      },
+      select:{
+        id: true,
+        name: true,
+        regNo:true,
+        classTitle: true,
+        streamTitle: true,
+        dob: true,
+        imageUrl: true,
+      },
+    });
+    return res.status(200).json(students);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export async function getNextStudentSquence(req: Request, res: Response) {
   try {
