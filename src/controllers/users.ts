@@ -1,8 +1,9 @@
 import { db } from "@/db/db";
 import { TypedRequestBody, UserCreateProps, UserLoginProps } from "@/types/types";
-import { Response } from "express";
+import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { generateAccessToken, generateRefreshToken, TokenPayload } from "@/utils/tokens";
+import { UserRole } from "@prisma/client";
 
 export async function createUserService(data: UserCreateProps) {
   const existingEmail = await db.user.findUnique({
@@ -135,6 +136,29 @@ export async function getAllUsers(req: Request, res: Response) {
     })
   }
 }
+
+export async function getUserProfileId(req: Request, res: Response) {
+  try {
+    const {userId} = req.params;
+    const {role} = req.query;
+    const userRole = role as UserRole
+    let ProfileId = null;
+    if (userRole==="PARENT"){
+      ProfileId = await db.parent.findUnique({
+        where: {
+          userId,
+        },
+        select:{
+          id: true,
+        },
+      });
+    }
+    return res.status(200).json(ProfileId);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 // export async function getContacts(req: Request, res: Response) {
 //   try {
