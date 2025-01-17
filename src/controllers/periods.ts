@@ -54,3 +54,29 @@ export async function getPeriodsGroupedByYear(req: Request, res: Response) {
   }
 
 }
+export async function getPeriodsByYear(req: Request, res: Response) {
+  try {
+    const { schoolId } = req.params;
+  const periods = await db.period.findMany({
+    where:{
+      schoolId,
+    },
+    orderBy: [
+      {year: 'desc'},
+      {term: 'asc'},
+    ],
+  });
+
+  return res.status(201).json({
+    data: periods,
+    error: null,
+  });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      data: null,
+      error: "Something went wrong",
+    });
+  }
+
+}
