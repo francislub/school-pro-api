@@ -9,6 +9,7 @@ import subjectRouter from "./routes/subjects";
 import teacherRouter from "./routes/teachers";
 import userRouter from "./routes/users";
 import analyticsRouter from "./routes/analytics";
+import periodRouter from "./routes/periods";
 
 require("dotenv").config();
 const cors = require("cors");
@@ -33,3 +34,4 @@ app.use("/api/v1", subjectRouter);
 app.use("/api/v1", teacherRouter);
 app.use("/api/v1", userRouter);
 app.use("/api/v1", analyticsRouter);
+app.use("/api/v1", periodRouter);

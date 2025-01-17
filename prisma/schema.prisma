@@ -61,6 +61,7 @@ model School {
   slug String @unique
 
   students    Student[]
+  periods     Period[]
   classes     Class[]
   parents     Parent[]
   streams     Stream[]
@@ -308,7 +309,7 @@ model Subject {
   departmentName  String
 
   school School @relation(fields: [schoolId], references: [id])
-  schoolId String 
+  schoolId String @default("cm5cqk1hu0000dydth4zzli9d")
   
 
   isActive  Boolean @default(true)
@@ -418,4 +419,24 @@ enum LeaveStatus {
   APPROVED 
   REJECTED
   CANCELLED
+}
+
+model Period {
+  id   String  @id @default(cuid())
+  year Int
+  term Int
+  startDate DateTime
+  endDate   DateTime
+  isActive  Boolean @default(false)
+
+  school School @relation(fields: [schoolId], references: [id])
+  schoolId String 
+
+  //payments Payment[]
+  //reports  Report[]
+  //marks    Mark[]
+
+  @@unique([year, term])
+  @@map("periods")
+
 }

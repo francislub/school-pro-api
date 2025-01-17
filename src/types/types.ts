@@ -43,6 +43,14 @@ export type ContactProps = {
     slug: string;
     schoolId: string;
   };
+  export type PeriodCreateProps ={
+    year: number;
+    term: number;
+    startDate: Date;
+    endDate: Date;
+    isActive: boolean;
+    schoolId: string;
+  };
 
   export type SubjectCreateProps ={
     name: string;
