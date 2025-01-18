@@ -51,6 +51,22 @@ export type ContactProps = {
     isActive: boolean;
     schoolId: string;
   };
+  interface FeeEntry {
+    title: string;
+    amount: number;
+  }
+
+  export type SchoolFeeProps ={
+    term:string;
+    title:string;
+    year: number;
+    fees :FeeEntry[];
+    schoolId:string;
+    classId:string;
+    periodId:string;
+    schoolName:string;
+    className:string;
+  };
 
   export type SubjectCreateProps ={
     name: string;

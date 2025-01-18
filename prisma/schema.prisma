@@ -449,6 +449,7 @@ model SchoolFee {
   id   String  @id @default(cuid())
   term String
   title String
+  year  Int
   className String
   schoolName String
   fees Fee[]
