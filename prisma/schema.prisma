@@ -68,6 +68,7 @@ model School {
   subjects    Subject[]
   teachers     Teacher[]
   departments  Department[]
+  schoolFees   SchoolFee[]
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -99,6 +100,7 @@ model Class {
   students Student[]
 
   streams       Stream[] 
+  schoolFees    SchoolFee[] 
 
   schoolId      String 
   school        School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
@@ -432,11 +434,46 @@ model Period {
   school School @relation(fields: [schoolId], references: [id])
   schoolId String 
 
+  schoolFees  SchoolFee[]
+
   //payments Payment[]
   //reports  Report[]
   //marks    Mark[]
 
   @@unique([year, term])
   @@map("periods")
+
+
+}
+model SchoolFee {
+  id   String  @id @default(cuid())
+  term String
+  title String
+  className String
+  schoolName String
+  fees Fee[]
+  
+
+  school School @relation(fields: [schoolId], references: [id])
+  schoolId String 
+
+  class Class @relation(fields: [classId], references: [id])
+  classId String 
+
+  period Period @relation(fields: [periodId], references: [id])
+  periodId String 
+
+  @@map("school-fees")
+
+}
+model Fee {
+  id   String  @id @default(cuid())
+  title String
+  amount Int
+  
+  schoolFee SchoolFee @relation(fields: [schoolFeeId], references: [id])
+  schoolFeeId String 
+
+  @@map("fees")
 
 }
