@@ -79,3 +79,47 @@ export async function getSchoolFees(req: Request, res: Response) {
   }
 
 }
+export async function getSchoolFeesByClass(req: Request, res: Response) {
+  try {
+    const { schoolId } = req.params;
+    const {className} = req.query;
+  const schFees = await db.schoolFee.findMany({
+    where:{
+      schoolId,
+      className: className as string
+    },
+    select:{
+      id: true,
+      term: true,
+      title: true,
+      className: true,
+      fees: true,
+      year:true
+    },
+  });
+  const currentYear = new Date().getFullYear();
+
+  const result = schFees
+  .filter((item)=> item.year === currentYear)
+  // .filter((item)=> item.className === className)
+  .map((item)=>{
+    const totalFees = item.fees.reduce((acc, item)=> acc + item.amount, 0);
+    return {
+     ...item,
+     totalFees: totalFees,
+    }
+  })
+
+  return res.status(200).json({
+    data: result,
+    error: null,
+  });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      data: null,
+      error: "Something went wrong",
+    });
+  }
+
+}
