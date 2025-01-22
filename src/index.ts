@@ -11,6 +11,7 @@ import userRouter from "./routes/users";
 import analyticsRouter from "./routes/analytics";
 import periodRouter from "./routes/periods";
 import schoolFeeRouter from "./routes/school-fee";
+import paymentRouter from "./routes/feePayments";
 
 require("dotenv").config();
 const cors = require("cors");
@@ -37,3 +38,4 @@ app.use("/api/v1", userRouter);
 app.use("/api/v1", analyticsRouter);
 app.use("/api/v1", periodRouter);
 app.use("/api/v1", schoolFeeRouter);
+app.use("/api/v1", paymentRouter);

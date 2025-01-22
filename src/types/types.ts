@@ -214,3 +214,23 @@ export type ContactProps = {
 
 
   }
+
+  export interface CreateSchoolFeePaymentInput{
+    schoolName: string;
+    schoolId: string;
+    periodId:string;
+    schoolFeeId:string;
+    studentProfileId: string;
+    studentUserId: string;
+    studentName: string;
+    parentName: string;
+    parentProfileId: string;
+    parentUserId: string;
+    schoolFeeTitle: string;
+    paidFeeAmount: number;
+    paidFees: string[];
+    PRN: string;
+    term: string;
+    year: number;
+    className: string;
+  }

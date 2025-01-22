@@ -69,6 +69,7 @@ model School {
   teachers     Teacher[]
   departments  Department[]
   schoolFees   SchoolFee[]
+  schoolFeePayment   SchoolFeePayment[]
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -152,6 +153,7 @@ model Parent {
   schoolId      String 
   schoolName    String
   school        School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  schoolFeePayment  SchoolFeePayment[]
 
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -164,6 +166,7 @@ model Student {
 
   user   User  @relation(fields: [userId], references: [id], onDelete:Cascade)
   userId  String @unique
+  schoolFeePayment  SchoolFeePayment[]
 
   name      String
   firstName  String   
@@ -436,7 +439,7 @@ model Period {
 
   schoolFees  SchoolFee[]
 
-  //payments Payment[]
+  schoolFeesPayments SchoolFeePayment[]
   //reports  Report[]
   //marks    Mark[]
 
@@ -453,6 +456,7 @@ model SchoolFee {
   className String
   schoolName String
   fees Fee[]
+  schoolFeePayment  SchoolFeePayment[]
   
 
   school School @relation(fields: [schoolId], references: [id])
@@ -467,6 +471,38 @@ model SchoolFee {
   @@map("school-fees")
 
 }
+model SchoolFeePayment {
+  id   String  @id @default(cuid())
+  schoolName String
+  school School @relation(fields: [schoolId], references: [id])
+  schoolId String 
+  period Period @relation(fields: [periodId], references: [id])
+  periodId String 
+
+  schoolFee SchoolFee @relation(fields: [schoolFeeId], references: [id])
+  schoolFeeId String 
+  student Student @relation(fields: [studentProfileId], references: [id])
+  parent Parent @relation(fields: [parentProfileId], references: [id])
+  studentProfileId String 
+  studentUserId String 
+  studentName String 
+  parentName String 
+  parentProfileId String 
+  parentUserId String 
+  schoolFeeTitle    String
+  paidFeeAmount Int
+  paidFees      String[]
+  PRN       String
+  paymentStatus  PaymentStatus @default(PENDING)
+
+  term  String
+  year  Int
+  className String
+
+
+  @@map("school-fees-payments")
+
+}
 model Fee {
   id   String  @id @default(cuid())
   title String
@@ -477,4 +513,10 @@ model Fee {
 
   @@map("fees")
 
+}
+
+enum PaymentStatus {
+  PENDING 
+  APPROVED 
+  FAILED
 }
