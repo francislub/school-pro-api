@@ -14,7 +14,7 @@ export async function createFeePayment(req: TypedRequestBody<CreateSchoolFeePaym
       `Payment created successfully: ${newPayment.PRN} (${newPayment.studentName})`
     );
     return res.status(201).json({
-      data: newPayment,
+      data: newPayment.PRN,
       error: null,
     });
   } catch (error) {

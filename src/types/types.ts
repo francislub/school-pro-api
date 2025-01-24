@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Gender, SubjectCategory, SubjectType, UserRole } from '@prisma/client';
+import { Gender, PaymentStatus, SubjectCategory, SubjectType, UserRole } from '@prisma/client';
 export interface TypedRequestBody<T> extends Request {
     body: T;
 }
@@ -233,4 +233,5 @@ export type ContactProps = {
     term: string;
     year: number;
     className: string;
+    paymentStatus: PaymentStatus;
   }
