@@ -27,11 +27,13 @@ export async function createFeePayment(req: TypedRequestBody<CreateSchoolFeePaym
 }
 
 export async function getPaymentsByYear(req: Request, res: Response) {
+  const cyear = new Date().getFullYear()
   try {
     const { schoolId } = req.params;
   const payments = await db.schoolFeePayment.findMany({
     where:{
       schoolId,
+      year:cyear,
     },
     orderBy: [
       {year: 'desc'},
