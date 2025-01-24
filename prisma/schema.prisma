@@ -499,6 +499,8 @@ model SchoolFeePayment {
   year  Int
   className String
 
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   @@map("school-fees-payments")
 

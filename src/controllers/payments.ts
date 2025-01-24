@@ -37,6 +37,18 @@ export async function getPaymentsByYear(req: Request, res: Response) {
       {year: 'desc'},
       {term: 'asc'},
     ],
+    select:{
+      id:true,
+      studentUserId: true,
+      schoolName:true,
+      paidFeeAmount: true,
+      paidFees:true,
+      PRN:true,
+      paymentStatus:true,
+      term:true,
+      year:true,
+      className:true,
+    }
   });
 
   return res.status(201).json({
