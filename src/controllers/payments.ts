@@ -26,10 +26,10 @@ export async function createFeePayment(req: TypedRequestBody<CreateSchoolFeePaym
   }
 }
 
-export async function getPeriodsByYear(req: Request, res: Response) {
+export async function getPaymentsByYear(req: Request, res: Response) {
   try {
     const { schoolId } = req.params;
-  const periods = await db.period.findMany({
+  const payments = await db.schoolFeePayment.findMany({
     where:{
       schoolId,
     },
@@ -40,7 +40,7 @@ export async function getPeriodsByYear(req: Request, res: Response) {
   });
 
   return res.status(201).json({
-    data: periods,
+    data: payments,
     error: null,
   });
   } catch (error) {
